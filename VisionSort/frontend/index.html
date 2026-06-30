@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VisionSort | AI-Powered Sorting Control Panel</title>
+    <!-- Google Fonts: Outfit for clean, geometric industrial design -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <!-- Chart.js CDN for historical telemetry -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Dashboard Header -->
+        <header class="app-header">
+            <div class="logo-area">
+                <div class="logo-icon"></div>
+                <div class="logo-text">
+                    <h1>VisionSort</h1>
+                    <span>Contamination Control Line v1.0.0</span>
+                </div>
+            </div>
+            
+            <div class="system-status-container">
+                <div class="status-badge" id="conveyor-status">
+                    <span class="status-dot pulsing"></span>
+                    <span class="status-label">Conveyor Run</span>
+                </div>
+                <div class="status-badge" id="db-status">
+                    <span class="status-dot"></span>
+                    <span class="status-label">Checking DB...</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Dashboard Content Grid -->
+        <main class="dashboard-grid">
+            
+            <!-- Left Side: Live Feed & Conveyor Controls -->
+            <section class="panel camera-panel">
+                <div class="panel-header">
+                    <h2>Live Classification Stream</h2>
+                    <span class="panel-badge">High-Speed Mode</span>
+                </div>
+                <div class="canvas-container">
+                    <canvas id="camera-feed" width="800" height="300"></canvas>
+                    <div class="scanner-line"></div>
+                </div>
+                
+                <!-- Controls Console -->
+                <div class="controls-console">
+                    <h3>Sorting Line Controls</h3>
+                    
+                    <div class="control-row">
+                        <label for="speed-slider">Conveyor Speed: <span id="speed-val">0.5x</span></label>
+                        <div class="slider-container">
+                            <input type="range" id="speed-slider" min="0.1" max="15.0" value="0.5" step="0.1">
+                        </div>
+                    </div>
+                    
+                    <div class="control-row">
+                        <label>Target Material Stream</label>
+                        <div class="material-selector-grid">
+                            <button class="material-btn active" data-material="Plastic" id="btn-plastic">Plastic</button>
+                            <button class="material-btn" data-material="Metal" id="btn-metal">Metal</button>
+                            <button class="material-btn" data-material="Biological" id="btn-biological">Organic</button>
+                            <button class="material-btn" data-material="Paper" id="btn-paper">Paper</button>
+                        </div>
+                    </div>
+
+
+                </div>
+            </section>
+            
+            <!-- Right Side: Stats & Alerts -->
+            <div class="dashboard-sidebar">
+                
+                <!-- Telemetry Cards -->
+                <div class="stats-grid">
+                    <div class="stat-card plastic-glow">
+                        <div class="stat-meta">
+                            <span>Passed Target Items</span>
+                            <svg class="stat-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                        </div>
+                        <h3 id="stat-sorted">0</h3>
+                        <p class="stat-trend positive">Total Passed Items</p>
+                    </div>
+                    
+                    
+                    <div class="stat-card paper-glow">
+                        <div class="stat-meta">
+                            <span>Belt Speed</span>
+                            <svg class="stat-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                        </div>
+                        <h3 id="stat-fps">0 px/s</h3>
+                        <p class="stat-trend positive">Conveyor Velocity</p>
+                    </div>
+                </div>
+
+                <!-- Historical Trends Panel -->
+                <div class="panel telemetry-panel">
+                    <div class="panel-header">
+                        <h2>Sorting Volume Trends</h2>
+                        <span class="panel-badge">Last 12 Hours</span>
+                    </div>
+                    <div class="chart-container" style="position: relative; height: 210px; width: 100%; margin-top: 10px;">
+                        <canvas id="trends-chart"></canvas>
+                    </div>
+                </div>
+                
+            </div>
+        </main>
+    </div>
+    
+    <script src="app.js"></script>
+</body>
+</html>
